@@ -44,7 +44,7 @@ public class CloudPrint {
         final String printerId = args[2];
 
         System.out.println("Printer: " + type + ", port: " + comPort + ", id: " + printerId + ".");
-        final URL url = new URL("https://fiscal-printer.appspot.com/v1/queue/" + printerId);
+        final URL url = new URL("https://panel.aseto.pl/api/printer/ajax.php?action=print&token=" + printerId);
         System.out.println("Server URL: " + url);
 
         final char[] X = new char[]{'-', '\\', '|', '/'};

@@ -30,6 +30,7 @@ public class FiscalPrinterException extends IOException {
      */
     public FiscalPrinterException(String msg) {
         super(msg);
+        System.out.println("test exception");
     }
 
     public FiscalPrinterException(Throwable t) {
