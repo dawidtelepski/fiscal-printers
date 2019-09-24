@@ -33,7 +33,6 @@ import org.json.JSONObject;
 public class CloudPrint {
 
     public static void main(String... args) throws Exception {
-//        args = new String[]{"Console", "COM1", "898288f0-bf79-4827-9d11-6b0b492e354c"};
         if (args.length != 3) {
             printHelp();
             return;
@@ -58,7 +57,15 @@ public class CloudPrint {
                 if (slip != null) {
                     FiscalPrinter fiscalPrinter = type.getFiscalPrinter(comPort);
                     fiscalPrinter.print(slip);
-                }
+                    
+                    System.out.println("Aseto.IT POS: Drukowanie paragonu poprawne");
+                    
+                    URL setPrintedURL = new URL("https://panel.aseto.pl/api/printer/ajax.php?action=setPrintedFiscal&token=" + printerId + "&uniqid=" + slip.getUniqId());
+                    
+                    HttpsURLConnection c = (HttpsURLConnection) setPrintedURL.openConnection();
+                    if(c.getResponseCode() == 200) {
+                        System.out.println("Aseto.IT POS: setPrinted request sent");
+                    }}
             } catch (Exception e) {
                 System.err.println("Error: " + e);
             }
@@ -97,6 +104,7 @@ public class CloudPrint {
         slip.setReference(jsonReceipt.optString("reference", null));
         slip.setCashierName(jsonReceipt.optString("cashier", null));
         slip.setCashbox(jsonReceipt.optString("register", null));
+        slip.setUniqId(jsonReceipt.optString("uniqid", null));
 
         final JSONArray jsonItems = jsonReceipt.optJSONArray("items");
         for (int i = 0; i < jsonItems.length(); i++) {
@@ -109,7 +117,7 @@ public class CloudPrint {
             slip.addLine(sl);
         }
 
-        slip.addPayment(SlipPayment.PaymentType.Cash, slip.getTotal(), null);
+        slip.addPayment(SlipPayment.PaymentType.valueOf(jsonReceipt.optString("paymentType", "Cash")), slip.getTotal(), "");
 
         return slip;
     }

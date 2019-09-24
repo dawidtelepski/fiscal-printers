@@ -473,7 +473,7 @@ public class Thermal101 implements FiscalPrinter {
             }
         }
 
-        byte[] seq = ToString.string2Mazovia("3;" + // ilość dodatkowych linii umieszczanych w stopce paragonu, za logo fiskalnym, do których ma dostęp aplikacja = 0...3
+        byte[] seq = ToString.string2Mazovia("1;" + // ilość dodatkowych linii umieszczanych w stopce paragonu, za logo fiskalnym, do których ma dostęp aplikacja = 0...3
                 "0;" + // zachowanie ‘dotychczasowe’ tzn. zakończenie drukowania, wysunięcie papieru i zakończenie trybu transakcyjnego
                 "1;" + // jeżeli tylko możliwe w jednej grupie to drukuj skrócone podsumowanie
                 "0;" + // kwota DSP ujemna
@@ -489,8 +489,6 @@ public class Thermal101 implements FiscalPrinter {
                 cashbox + "\r" + cashier + "\r" + // kod kasy i kod kasjera
                 reference + "\r" + //nr systemowy
                 footLine1 + "\r" + // linia dodatkowa 1
-                footLine2 + "\r" + // linia dodatkowa 2
-                footLine3 + "\r" + // linia dodatkowa 3
                 pfn + // formy platnosci - nazwy
                 total + "/" + // total
                 total + // DSP
@@ -517,9 +515,7 @@ public class Thermal101 implements FiscalPrinter {
         sendDLE();
         sendENQ();
     }
-    private final static String footLine1 = "Serwer wydruku fiskalnego wersja 2.0";
-    private final static String footLine2 = "(c)2014 https://bart.prokop.name/";
-    private final static String footLine3 = "Sterownik: PosnetThermal 1.01";
+    private final static String footLine1 = "Aseto.IT POS (C) 2019";
 
     private void sendLBSERM(byte ps) throws FiscalPrinterException {
         if (!printerConnected) {

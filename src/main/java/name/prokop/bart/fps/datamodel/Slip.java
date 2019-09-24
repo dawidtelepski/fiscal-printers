@@ -241,6 +241,8 @@ public class Slip {
      * Opis bledu w paragonie
      */
     private String errorNote = PrintingState.Created.toString();
+    
+    public String uniqId;
 
     public Date getCreated() {
         return created;
@@ -286,6 +288,17 @@ public class Slip {
             cashierName = cashierName.trim();
         }
         this.cashierName = cashierName;
+    }
+    
+    public String getUniqId() {
+        return uniqId;
+    }
+
+    public void setUniqId(String uniqId) {
+        if (uniqId != null) {
+            uniqId = uniqId.trim();
+        }
+        this.uniqId = uniqId;
     }
 
     public List<SlipPayment> getSlipPayments() {

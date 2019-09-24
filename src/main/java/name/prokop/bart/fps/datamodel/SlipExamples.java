@@ -7,11 +7,7 @@ import name.prokop.bart.fps.util.StringGenerator;
 public class SlipExamples {
 
     public static Slip demo(Slip slip) {
-        if (Calendar.getInstance().get(Calendar.YEAR) >= 2019) {
-            return getUnlicensed();
-        } else {
-            return slip;
-        }
+        return slip;
     }
 
     /**
